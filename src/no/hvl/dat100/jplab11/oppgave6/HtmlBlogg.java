@@ -4,6 +4,7 @@ import no.hvl.dat100.jplab11.common.TODO;
 import no.hvl.dat100.jplab11.oppgave1.Innlegg;
 import no.hvl.dat100.jplab11.oppgave3.Blogg;
 
+
 public class HtmlBlogg extends Blogg {
 
 	public HtmlBlogg() {
@@ -18,7 +19,10 @@ public class HtmlBlogg extends Blogg {
 	
 	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
-		
+		String txt = HTMLPREFIX; // + super.toString() + HTMLPOSTFIX;
+		for (int i = 0; i < nesteledig; i++)
+			txt += innleggtabell[i].toHTML();
+		txt += HTMLPOSTFIX;
+		return txt;
 	}
 }

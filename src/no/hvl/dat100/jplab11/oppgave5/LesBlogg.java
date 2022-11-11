@@ -22,43 +22,39 @@ public class LesBlogg {
 
 	public static Blogg les(String mappe, String filnavn) {
 		Blogg blogg = null;
-		Scanner leser = null;
+		BufferedReader leser = null ;
 		try {
-			leser = new Scanner(new FileReader(filnavn));
-			int antallInnlegg = Integer.parseInt(leser.nextLine());
+			leser = new BufferedReader(new FileReader(mappe + filnavn));
+			String linje = leser.readLine();
+			int antallInnlegg = Integer.parseInt(linje);
 			blogg = new Blogg(antallInnlegg);
-			Innlegg i;
-			while (leser.hasNextLine()) {
-				if (leser.nextLine().equals(TEKST)) {
-					int id = leser.nextInt();
-					String navn = leser.nextLine();
-					String dato = leser.nextLine();
-					int likes = leser.nextInt();
-					String tekst = leser.nextLine();
-					i = new Tekst(id, navn, dato, likes, tekst);
-				} 
-				else {
-					int id = leser.nextInt();
-					String navn = leser.nextLine();
-					String dato = leser.nextLine();
-					int likes = leser.nextInt();
-					String tekst = leser.nextLine();
-					String url = leser.nextLine();
-					i = new Bilde(id, navn, dato, likes, tekst, url);
-				}
-				blogg.leggTil(i);		
+			Innlegg i = null;
+			while (antallInnlegg > 0) {
+				linje = leser.readLine();
+				int id = Integer.parseInt(leser.readLine());
+				String navn = leser.readLine();
+				String dato = leser.readLine();
+				int likes = Integer.parseInt(leser.readLine());
+				String tekst = leser.readLine();
+				i = new Tekst(id, navn, dato, likes, tekst);
+				if (linje.equals(BILDE)) {
+					String bilde = leser.readLine();
+                    i = new Bilde(id, navn, dato, likes, tekst, bilde);
+                } else if (linje.equals(TEKST)) {
+                    i = new Tekst(id, navn, dato, likes, tekst);
+                } else {
+                    System.out.println("Det har skjedd en feil");
+                }	
+                blogg.leggTil(i);
+                antallInnlegg--;
 			}
+			leser.close();
 		
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
 		} catch(IOException ioe) {
 		     System.out.println(ioe);
-		} finally {
-			if (leser != null ) {
-				leser.close();
-			}
 		}
-		
 		return blogg;
 	}
 }

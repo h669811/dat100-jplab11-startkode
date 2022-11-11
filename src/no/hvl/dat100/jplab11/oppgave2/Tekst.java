@@ -39,8 +39,9 @@ public class Tekst extends Innlegg {
 	
 	// Metoden nedenfor er kun for valgfri oppgave 6
 	public String toHTML() {
-			
-		throw new UnsupportedOperationException(TODO.method());
+		String txt = super.toHTML();
+		txt += "\t\t<p>" + this.tekst + "<p>\n";
+		return txt;
 				
 	}
 }

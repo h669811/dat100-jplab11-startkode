@@ -7,7 +7,7 @@ import no.hvl.dat100.jplab11.oppgave2.*;
 public class Blogg {
 	
 	protected Innlegg[] innleggtabell;
-	private int nesteledig;
+	protected int nesteledig;
 
 	public Blogg() {
 		innleggtabell = new Innlegg[20];
